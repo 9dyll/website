@@ -88,6 +88,15 @@
       -webkit-background-clip: text;
       color: transparent;
       animation: rainbow 5s linear infinite, pulseText 2s infinite;
+      transition: text-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .name:hover {
+      text-shadow:
+        0 0 5px #fff,
+        0 0 10px #0ff,
+        0 0 20px #0ff,
+        0 0 30px #0ff;
     }
 
     @keyframes rainbow {
