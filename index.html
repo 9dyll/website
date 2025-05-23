@@ -21,6 +21,12 @@
       align-items: center;
       color: #fff;
       overflow: hidden;
+      animation: fadeBg 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes fadeBg {
+      0% { filter: brightness(1); }
+      100% { filter: brightness(1.1); }
     }
 
     .container {
@@ -30,6 +36,19 @@
       border-radius: 20px;
       backdrop-filter: blur(6px);
       box-shadow: 0 0 20px rgba(0,0,0,0.7);
+      animation: fadeInUp 1.5s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .profile-pic {
@@ -38,6 +57,19 @@
       border-radius: 50%;
       border: 3px solid #fff;
       margin-bottom: 1rem;
+      animation: popIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.6);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     .name {
@@ -47,19 +79,29 @@
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      animation: rainbow 5s linear infinite;
+      animation: rainbow 5s linear infinite, pulseText 2s infinite;
     }
 
     @keyframes rainbow {
-      to {
-        background-position: 200% center;
-      }
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    @keyframes pulseText {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     .desc {
       font-size: 1rem;
       color: #ccc;
       margin-bottom: 1rem;
+      animation: fadeIn 2s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
 
     .icons {
@@ -68,15 +110,18 @@
       gap: 1rem;
       font-size: 1.5rem;
       margin-bottom: 2rem;
+      animation: fadeIn 2.5s ease forwards;
+      opacity: 0;
     }
 
     .icons i {
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, color 0.3s ease;
     }
 
     .icons i:hover {
       transform: scale(1.2);
+      color: #00ffff;
     }
 
     .player {
@@ -84,6 +129,8 @@
       align-items: center;
       gap: 1rem;
       justify-content: center;
+      animation: fadeInUp 3s ease forwards;
+      opacity: 0;
     }
 
     .player audio {
