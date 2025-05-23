@@ -1,104 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>About Me</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
-
-  /* Reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    background: #121212;
-    color: #eee;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-  }
-
-  .container {
-    max-width: 600px;
-    text-align: center;
-    padding: 2rem;
-    background: #1f1f1f;
-    border-radius: 12px;
-    box-shadow: 0 0 30px #00e5ff33;
-    animation: fadeIn 1.5s ease forwards;
-    opacity: 0;
-  }
-
-  h1 {
-    font-weight: 600;
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-    color: #00e5ff;
-    letter-spacing: 2px;
-    animation: slideInDown 1s ease forwards;
-  }
-
-  h2 {
-    font-weight: 300;
-    font-size: 1.3rem;
-    color: #a0a0a0;
-    margin-bottom: 2rem;
-    animation: slideInDown 1.3s ease forwards;
-  }
-
-  p {
-    font-weight: 300;
-    line-height: 1.6;
-    font-size: 1.1rem;
-    color: #ccc;
-    animation: fadeInUp 1.6s ease forwards;
-  }
-
-  /* Animations */
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dyl | About Me</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  }
 
-  @keyframes slideInDown {
-    from {
-      transform: translateY(-30px);
-      opacity: 0;
+    body {
+      background: url('https://i.imgur.com/tVRM7kV.png') center/cover no-repeat;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      overflow: hidden;
     }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
 
-  @keyframes fadeInUp {
-    from {
-      transform: translateY(30px);
-      opacity: 0;
+    .container {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.7);
     }
-    to {
-      transform: translateY(0);
-      opacity: 1;
+
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      margin-bottom: 1rem;
     }
-  }
-</style>
+
+    .name {
+      font-size: 2rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, #ff0000, #ff9900, #33ff00, #00ffff, #0000ff, #cc00ff, #ff0066);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: rainbow 5s linear infinite;
+    }
+
+    @keyframes rainbow {
+      to {
+        background-position: 200% center;
+      }
+    }
+
+    .desc {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .icons i {
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .icons i:hover {
+      transform: scale(1.2);
+    }
+
+    .player {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .player audio {
+      width: 250px;
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/a2e0e6bc59.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Hello, I'm Vro</h1>
-    <h2>Web Developer & Designer</h2>
-    <p>
-      I build clean, fast, and responsive websites with a passion for minimalistic design and smooth animations.  
-      Dark mode lover who codes with style and precision.
-    </p>
+    <img src="https://i.imgur.com/YOUR_AVATAR.png" alt="Profile Picture" class="profile-pic">
+    <div class="name">dyl</div>
+    <div class="desc">sniping users</div>
+    <div class="icons">
+      <i class="fas fa-globe"></i>
+      <i class="fas fa-globe"></i>
+      <i class="fab fa-discord"></i>
+    </div>
+    <div class="player">
+      <i class="fas fa-music"></i>
+      <div>
+        <div>Timeless</div>
+        <audio controls>
+          <source src="your-song.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </div>
   </div>
 </body>
 </html>
