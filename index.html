@@ -1,51 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Me</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/framer-motion@10.12.16/dist/framer-motion.umd.js"></script>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About Me</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+  /* Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #121212;
+    color: #eee;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 600px;
+    text-align: center;
+    padding: 2rem;
+    background: #1f1f1f;
+    border-radius: 12px;
+    box-shadow: 0 0 30px #00e5ff33;
+    animation: fadeIn 1.5s ease forwards;
+    opacity: 0;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: #00e5ff;
+    letter-spacing: 2px;
+    animation: slideInDown 1s ease forwards;
+  }
+
+  h2 {
+    font-weight: 300;
+    font-size: 1.3rem;
+    color: #a0a0a0;
+    margin-bottom: 2rem;
+    animation: slideInDown 1.3s ease forwards;
+  }
+
+  p {
+    font-weight: 300;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #ccc;
+    animation: fadeInUp 1.6s ease forwards;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
     }
-  </style>
+  }
+
+  @keyframes slideInDown {
+    from {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-
-  <div class="min-h-screen flex flex-col items-center justify-center px-4">
-    <div id="about-card" class="bg-white rounded-2xl shadow-xl p-8 max-w-xl w-full">
-      <h1 class="text-4xl font-bold mb-4 text-center">Hey, I'm dylan 👋</h1>
-      <p class="text-lg text-center mb-6">
-        no
-      </p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="bg-gray-50 p-4 rounded-xl shadow-inner">
-          <h2 class="text-xl font-semibold mb-2">💻 Skills</h2>
-          <ul class="list-disc list-inside">
-            <li>HTML, CSS, JS</li>
-            <li>React, Tailwind</li>
-            <li>Node.js, MongoDB</li>
-          </ul>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-xl shadow-inner">
-          <h2 class="text-xl font-semibold mb-2">🎯 Goals</h2>
-          <ul class="list-disc list-inside">
-            <li>Master full-stack dev</li>
-            <li>Contribute to OSS</li>
-            <li>Launch a product</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+<body>
+  <div class="container">
+    <h1>Hello, I'm Vro</h1>
+    <h2>Web Developer & Designer</h2>
+    <p>
+      I build clean, fast, and responsive websites with a passion for minimalistic design and smooth animations.  
+      Dark mode lover who codes with style and precision.
+    </p>
   </div>
-
-  <script>
-    const { motion, animate } = window.framerMotion;
-    const card = document.getElementById('about-card');
-    animate(card, { opacity: [0, 1], y: [-30, 0] }, { duration: 0.8, ease: "easeOut" });
-  </script>
-
 </body>
 </html>
