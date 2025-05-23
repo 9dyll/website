@@ -71,6 +71,31 @@
     li {
       margin-bottom: 0.5rem;
     }
+
+    /* Cursor particles */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 8px 2px white;
+      opacity: 0.9;
+      animation: fall 1s linear forwards;
+      z-index: 9999;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(80px) scale(0.5);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -87,5 +112,21 @@
       <li>Python</li>
     </ul>
   </div>
+
+  <script>
+    function createParticle(x, y) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = `${x}px`;
+      particle.style.top = `${y}px`;
+      document.body.appendChild(particle);
+      particle.addEventListener('animationend', () => particle.remove());
+    }
+
+    window.addEventListener('mousemove', e => {
+      createParticle(e.clientX + (Math.random() * 10 - 5), e.clientY + (Math.random() * 10 - 5));
+      createParticle(e.clientX + (Math.random() * 10 - 5), e.clientY + (Math.random() * 10 - 5));
+    });
+  </script>
 </body>
 </html>
