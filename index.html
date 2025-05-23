@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>dyll.xyz</title>
+  <title>About Me</title>
   <style>
     /* Reset and base styles */
     * {
@@ -70,9 +70,56 @@
       transform: scale(1.05);
     }
 
-    h1 {
-      margin-bottom: 1rem;
+    /* Tooltip container */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
       font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 80px;
+      background-color: rgba(30, 30, 30, 0.9);
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 6px 8px;
+      position: absolute;
+      bottom: 125%; /* above the text */
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      font-weight: 500;
+      font-size: 0.9rem;
+      z-index: 10;
+    }
+
+    /* Tooltip arrow */
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%; /* arrow below tooltip */
+      left: 50%;
+      margin-left: -6px;
+      border-width: 6px;
+      border-style: solid;
+      border-color: rgba(30, 30, 30, 0.9) transparent transparent transparent;
+    }
+
+    /* Show tooltip on hover */
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
     }
 
     p {
@@ -90,7 +137,9 @@
       <a href="hobbies.html">Hobbies</a>
     </nav>
     <img src="https://media.discordapp.net/attachments/1370432311333752937/1375608645475110982/IMG_2570.jpg?ex=68324ee2&is=6830fd62&hm=3f9d08b3fbc95b97c28aec2a6beb184598b437148fe8c8e8d8c288e04f575340&=&format=webp&width=720&height=960" alt="Profile Picture" class="profile-pic" />
-    <h1 title="UID 1">dylan</h1>
+    <h1 class="tooltip">dylan
+      <span class="tooltiptext">UID 1</span>
+    </h1>
     <p>This is my portfolio, Check out my hobbies, skills & projects</p>
   </div>
 </body>
