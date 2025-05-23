@@ -83,25 +83,17 @@
     .name {
       font-size: 2rem;
       font-weight: 600;
-      background: linear-gradient(90deg, #ff0000, #ff9900, #33ff00, #00ffff, #0000ff, #cc00ff, #ff0066);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: rainbow 5s linear infinite, pulseText 2s infinite;
+      color: white;
+      animation: pulseText 2s infinite;
       transition: text-shadow 0.3s ease;
       cursor: pointer;
     }
     .name:hover {
       text-shadow:
         0 0 5px #fff,
-        0 0 10px #0ff,
-        0 0 20px #0ff,
-        0 0 30px #0ff;
-    }
-
-    @keyframes rainbow {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
+        0 0 10px #fff,
+        0 0 20px #fff,
+        0 0 30px #fff;
     }
 
     @keyframes pulseText {
