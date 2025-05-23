@@ -3,30 +3,165 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About - jacob</title>
+  <title>dyl</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+
+  <!-- Open Graph Meta Tags for Discord Embed -->
+  <meta property="og:title" content="dyll.xyz/jacob" />
+  <meta property="og:description" content="Wait im hella autistic" />
+  <meta property="og:image" content="https://imgs.search.brave.com/ssRFn8_fRTdmjOHA0xiydc9WlQ9ZvtgXAG4TgdVoAlQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vMjlJc0Rp/Y2NMQkFpak03c2k1/eHh2RzdIRTlUTjMz/QndkRE9FUHl5d3h1/Yy9yczpmaXQ6NTAw/OjA6MDowL2c6Y2Uv/YUhSMGNITTZMeTlw/YURFdS9jbVZrWW5W/aVlteGxMbTVsL2RD/OXBiV0ZuWlM0MU16/UTUvT1Rjek5ERXdM/amcyTVRFdi9abXho/ZEN3M05UQjRMREEz/L05TeG1MWEJoWkN3/M05UQjQvTVRBd01D/eG1PR1k0WmpndS9h/bkJu" />
+  <meta property="og:url" content="https://dyll.xyz/jacob" />
+  <meta property="og:type" content="wait im goated" />
+
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background: black;
-      color: white;
+      background: url('https://images.pexels.com/photos/1428277/pexels-photo-1428277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') center/cover no-repeat;
+      height: 100vh;
       font-family: 'Poppins', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      flex-direction: column;
-      text-align: center;
+      color: #fff;
+      overflow: hidden;
+      animation: fadeBg 10s ease-in-out infinite alternate;
     }
-    a {
+
+    @keyframes fadeBg {
+      0% { filter: brightness(1); }
+      100% { filter: brightness(1.1); }
+    }
+
+    .container {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.7);
+      animation: fadeInUp 1.5s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      margin-bottom: 1rem;
+      animation: popIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.6);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .name {
+      font-size: 2rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, #ff0000, #ff9900, #33ff00, #00ffff, #0000ff, #cc00ff, #ff0066);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: rainbow 5s linear infinite, pulseText 2s infinite;
+    }
+
+    @keyframes rainbow {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    @keyframes pulseText {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .desc {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 1rem;
+      animation: fadeIn 2s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeIn 2.5s ease forwards;
+      opacity: 0;
+    }
+
+    .icons i {
+      cursor: pointer;
+      transition: transform 0.2s ease, color 0.3s ease;
+    }
+
+    .icons i:hover {
+      transform: scale(1.2);
+      color: #00ffff;
+    }
+
+    .icons a {
       color: cyan;
-      margin-top: 20px;
       text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .player {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      animation: fadeInUp 3s ease forwards;
+      opacity: 0;
+    }
+
+    .player audio {
+      width: 250px;
     }
   </style>
+  <script src="https://kit.fontawesome.com/a2e0e6bc59.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <h1>About dyl</h1>
-  <p>wait im autistic fr</p>
-  <a href="index.html">← Back to Home</a>
+  <div class="container">
+    <img class="profile-pic" src="https://media.discordapp.net/attachments/1370585650692100130/1375542445441290482/7e12e67829b4c24a248f134e6acc1686.webp?ex=6832113b&is=6830bfbb&hm=9ed376693eca7112a7400c6abcb3ef2135393d2b1032f9dd4761b22d900784e0&=&format=webp" />
+    <div class="name">jacob</div>
+    <div class="desc">Im hella autistic</div>
+    <div class="icons">
+      <a href="jacob.html">Dyls about me</a>
+    </div>
+  </div>
 </body>
 </html>
