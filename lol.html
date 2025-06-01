@@ -1,8 +1,356 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="refresh" content="0; url=index.html" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Interactive Space Vibes with Spaceship</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    background: radial-gradient(ellipse at center, #000010 0%, #000000 80%);
+    overflow-x: hidden;
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    position: relative;
+  }
+
+  /* Starfield with subtle movement */
+  .stars {
+    position: fixed;
+    width: 200vw; height: 200vh;
+    background: transparent;
+    box-shadow:
+      50px 80px 2px #fff,
+      150px 200px 3px #fff,
+      300px 400px 2px #ccc,
+      500px 150px 2px #fff,
+      700px 300px 3px #fff,
+      850px 90px 2px #ccc,
+      1200px 700px 2px #fff,
+      1400px 1000px 3px #fff,
+      1700px 1200px 2px #ccc,
+      1800px 300px 2px #fff,
+      1900px 500px 3px #fff;
+    animation: twinkle 5s infinite alternate, starMove 60s linear infinite;
+    z-index: 0;
+    top: 0; left: 0;
+  }
+  @keyframes twinkle {
+    0% {
+      box-shadow:
+        50px 80px 2px #fff,
+        150px 200px 3px #fff,
+        300px 400px 2px #ccc,
+        500px 150px 2px #fff,
+        700px 300px 3px #fff,
+        850px 90px 2px #ccc,
+        1200px 700px 2px #fff,
+        1400px 1000px 3px #fff,
+        1700px 1200px 2px #ccc,
+        1800px 300px 2px #fff,
+        1900px 500px 3px #fff;
+    }
+    100% {
+      box-shadow:
+        50px 80px 4px #fff,
+        150px 200px 6px #fff,
+        300px 400px 4px #eee,
+        500px 150px 4px #fff,
+        700px 300px 6px #fff,
+        850px 90px 4px #eee,
+        1200px 700px 4px #fff,
+        1400px 1000px 6px #fff,
+        1700px 1200px 4px #eee,
+        1800px 300px 4px #fff,
+        1900px 500px 6px #fff;
+    }
+  }
+  @keyframes starMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100px, -50px); }
+  }
+
+  header {
+    text-align: center;
+    padding: 40px 20px 20px;
+    position: relative;
+    z-index: 10;
+  }
+  header h1 {
+    font-size: 3em;
+    text-shadow: 0 0 15px #0ff;
+  }
+  header p {
+    max-width: 600px;
+    margin: 10px auto 0;
+    color: #bbb;
+    font-size: 1.2em;
+    text-shadow: 0 0 5px #000;
+  }
+
+  .solar-system {
+    position: relative;
+    margin: 60px auto;
+    width: 90vw;
+    height: 400px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding-bottom: 60px;
+    z-index: 5;
+  }
+
+  .planet {
+    display: inline-block;
+    margin: 0 30px;
+    cursor: pointer;
+    position: relative;
+    vertical-align: bottom;
+    transition: transform 0.3s ease;
+  }
+  .planet:hover {
+    transform: scale(1.2);
+    z-index: 20;
+  }
+
+  .planet-circle {
+    border-radius: 50%;
+    box-shadow: inset -10px -10px 20px rgba(255,255,255,0.2);
+    position: relative;
+    animation: rotateSelf 20s linear infinite;
+  }
+  @keyframes rotateSelf {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Planets sizes & colors */
+  .mercury {
+    width: 60px; height: 60px;
+    background: radial-gradient(circle at 40% 40%, #aaa7a2, #5c5a56);
+  }
+  .venus {
+    width: 85px; height: 85px;
+    background: radial-gradient(circle at 30% 30%, #e9c79d, #b48a4a);
+  }
+  .earth {
+    width: 100px; height: 100px;
+    background: radial-gradient(circle at 40% 40%, #4a82c1, #0b263d);
+    box-shadow: inset 0 0 15px #2e9aff;
+    animation-duration: 30s;
+  }
+  .mars {
+    width: 75px; height: 75px;
+    background: radial-gradient(circle at 30% 30%, #d14f31, #6f230d);
+  }
+  .jupiter {
+    width: 140px; height: 140px;
+    background: radial-gradient(circle at 40% 40%, #e3c796, #7d5e33);
+    animation-duration: 50s;
+  }
+  .saturn {
+    width: 130px; height: 130px;
+    background: radial-gradient(circle at 40% 40%, #d3c3a4, #7b6f47);
+  }
+  .saturn-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 180px; height: 40px;
+    margin: -20px 0 0 -90px;
+    border: 5px solid #b8aa75;
+    border-radius: 50% / 50%;
+    box-shadow: 0 0 20px #cfc19e;
+    animation: ringSpin 60s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes ringSpin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+  }
+  .uranus {
+    width: 110px; height: 110px;
+    background: radial-gradient(circle at 40% 40%, #7dd1e0, #2c7887);
+    animation-duration: 40s;
+  }
+  .neptune {
+    width: 110px; height: 110px;
+    background: radial-gradient(circle at 40% 40%, #3d75c7, #11375f);
+    animation-duration: 45s;
+  }
+
+  /* Info box */
+  #infoBox {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 500px;
+    background: rgba(0,0,0,0.85);
+    border: 2px solid #0ff;
+    border-radius: 12px;
+    padding: 20px;
+    color: #0ff;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 0 15px #0ff;
+    z-index: 100;
+    display: none;
+  }
+  #infoBox button {
+    margin-top: 15px;
+    background: #0ff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-weight: 700;
+    color: #000;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #infoBox button:hover {
+    background: #08a;
+    color: #fff;
+  }
+
+  /* Spaceship */
+  .spaceship {
+    position: fixed;
+    top: 20%;
+    left: -100px;
+    width: 80px;
+    height: 40px;
+    background: linear-gradient(45deg, #0ff, #005577);
+    border-radius: 20px 20px 10px 10px;
+    box-shadow: 0 0 20px #0ff;
+    animation: flyby 20s linear infinite;
+    z-index: 15;
+  }
+  .spaceship::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    width: 60px;
+    height: 10px;
+    background: #003344;
+    border-radius: 5px;
+    transform: translateY(-50%);
+  }
+  .spaceship::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background: #00ffffcc;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #0ff;
+    transform: translateY(-50%);
+  }
+
+  @keyframes flyby {
+    0% {
+      left: -100px;
+      top: 20%;
+      transform: rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      left: 110vw;
+      top: 30%;
+      transform: rotate(10deg);
+      opacity: 1;
+    }
+    90% {
+      opacity: 0;
+    }
+    100% {
+      left: -100px;
+      top: 20%;
+      transform: rotate(0deg);
+      opacity: 0;
+    }
+  }
+
+</style>
 </head>
 <body>
+  <div class="stars"></div>
+
+  <header>
+    <h1>Explore Our Solar System</h1>
+    <p>Click on any planet below to learn some cool facts with animations.</p>
+  </header>
+
+  <div class="solar-system" aria-label="Solar System Planets">
+    <div class="planet mercury" data-name="Mercury" data-info="Mercury is the smallest planet and closest to the Sun, with extreme temperatures.">
+      <div class="planet-circle mercury"></div>
+    </div>
+    <div class="planet venus" data-name="Venus" data-info="Venus is covered in thick toxic clouds and is the hottest planet in our solar system.">
+      <div class="planet-circle venus"></div>
+    </div>
+    <div class="planet earth" data-name="Earth" data-info="Earth is our home planet, rich with life and blue oceans.">
+      <div class="planet-circle earth"></div>
+    </div>
+    <div class="planet mars" data-name="Mars" data-info="Mars, the red planet, might have had water and could host future colonies.">
+      <div class="planet-circle mars"></div>
+    </div>
+    <div class="planet jupiter" data-name="Jupiter" data-info="Jupiter is the largest planet, known for its giant storm, the Great Red Spot.">
+      <div class="planet-circle jupiter"></div>
+    </div>
+    <div class="planet saturn" data-name="Saturn" data-info="Saturn’s famous rings are made of ice and rock particles.">
+      <div class="planet-circle saturn"></div>
+      <div class="saturn-ring"></div>
+    </div>
+    <div class="planet uranus" data-name="Uranus" data-info="Uranus spins on its side and has a blue-green color due to methane in the atmosphere.">
+      <div class="planet-circle uranus"></div>
+    </div>
+    <div class="planet neptune" data-name="Neptune" data-info="Neptune is a cold, windy blue planet and the farthest from the Sun.">
+      <div class="planet-circle neptune"></div>
+    </div>
+  </div>
+
+  <div id="infoBox" role="dialog" aria-modal="true" aria-labelledby="planetName" aria-describedby="planetDesc">
+    <h2 id="planetName"></h2>
+    <p id="planetDesc"></p>
+    <button id="closeBtn">Close</button>
+  </div>
+
+  <div class="spaceship" aria-label="Spaceship flying across space"></div>
+
+<script>
+  const planets = document.querySelectorAll('.planet');
+  const infoBox = document.getElementById('infoBox');
+  const planetName = document.getElementById('planetName');
+  const planetDesc = document.getElementById('planetDesc');
+  const closeBtn = document.getElementById('closeBtn');
+
+  planets.forEach(planet => {
+    planet.addEventListener('click', () => {
+      const name = planet.dataset.name;
+      const info = planet.dataset.info;
+
+      planetName.textContent = name;
+      planetDesc.textContent = info;
+      infoBox.style.display = 'block';
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    infoBox.style.display = 'none';
+  });
+
+  // Close info on Escape key
+  window.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && infoBox.style.display === 'block'){
+      infoBox.style.display = 'none';
+    }
+  });
+</script>
+
 </body>
 </html>
