@@ -2,64 +2,264 @@
 // src/pages/index.astro
 ---
 
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dark Shop</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>VOIDSTORE</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-    <script src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js" async></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+    <script async src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
     <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
     <div hidden id="snipcart" data-api-key="MDQ3ZWY3ZDYtZTJlOS00NjFkLWJmNTEtZGExOGQ2YzZmNmM0NjM4ODQ0NjIxNjg0NzAyMTcw"></div>
+
+    <style>
+      body {
+        font-family: 'Orbitron', sans-serif;
+        background: #0a0a0a;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Glitchy animated background */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background:
+          radial-gradient(circle at 20% 20%, #ff00c8aa 15%, transparent 40%),
+          radial-gradient(circle at 80% 80%, #00fffaaa 15%, transparent 40%);
+        mix-blend-mode: screen;
+        animation: pulse 6s infinite alternate ease-in-out;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      @keyframes pulse {
+        0% {
+          filter: blur(6px);
+          opacity: 0.3;
+        }
+        100% {
+          filter: blur(20px);
+          opacity: 0.6;
+        }
+      }
+
+      /* Glitch text effect for hero */
+      .glitch {
+        position: relative;
+        color: white;
+        font-weight: 700;
+      }
+      .glitch::before,
+      .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        left: 0;
+        width: 100%;
+        opacity: 0.8;
+        clip-path: var(--clip);
+      }
+      .glitch::before {
+        animation: glitchTop 2s infinite linear alternate-reverse;
+        color: #ff00c8;
+        --clip: polygon(0 2%, 100% 2%, 100% 20%, 0 20%);
+      }
+      .glitch::after {
+        animation: glitchBottom 3s infinite linear alternate-reverse;
+        color: #00fff9;
+        --clip: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
+      }
+      @keyframes glitchTop {
+        0% { transform: translate(2px, -2px) skew(-1deg); }
+        20% { transform: translate(-2px, 0) skew(1deg); }
+        40% { transform: translate(2px, 2px) skew(0); }
+        60% { transform: translate(-1px, 1px) skew(1deg); }
+        80% { transform: translate(1px, -1px) skew(-1deg); }
+        100% { transform: translate(0, 0) skew(0); }
+      }
+      @keyframes glitchBottom {
+        0% { transform: translate(-2px, 2px) skew(1deg); }
+        20% { transform: translate(2px, -1px) skew(-1deg); }
+        40% { transform: translate(-2px, 0) skew(0); }
+        60% { transform: translate(1px, -1px) skew(-1deg); }
+        80% { transform: translate(-1px, 2px) skew(1deg); }
+        100% { transform: translate(0, 0) skew(0); }
+      }
+
+      /* Product filtering animations */
+      .product-item {
+        transition: opacity 0.4s ease, transform 0.4s ease;
+      }
+      .hidden-product {
+        opacity: 0;
+        transform: scale(0.85);
+        pointer-events: none;
+        position: absolute;
+      }
+    </style>
   </head>
-  <body class="bg-gray-950 text-gray-100 font-sans">
+
+  <body class="relative text-gray-100">
     <!-- Header -->
-    <header class="sticky top-0 z-50 p-6 bg-gray-900 shadow-lg backdrop-blur bg-opacity-80">
-      <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold tracking-tight text-white">Dark Shop</h1>
-        <button class="snipcart-checkout text-cyan-400 hover:text-cyan-300 transition">
-          Cart (<span class="snipcart-items-count"></span>)
-        </button>
-      </div>
+    <header class="sticky top-0 z-50 p-6 bg-black/80 backdrop-blur shadow border-b border-gray-800 flex justify-between max-w-6xl mx-auto">
+      <h1 class="text-3xl font-bold tracking-widest text-white">
+        VOID<span class="text-pink-500">STORE</span>
+      </h1>
+      <button class="snipcart-checkout text-pink-500 hover:text-white transition">
+        CART (<span class="snipcart-items-count"></span>)
+      </button>
     </header>
 
-    <!-- Hero (Optional) -->
-    <section class="text-center py-16" data-aos="fade-down">
-      <h2 class="text-4xl font-extrabold mb-4 text-white">Shop the Future</h2>
-      <p class="text-gray-400">Sleek digital goods crafted for the modern world.</p>
+    <!-- Hero -->
+    <section class="text-center py-20 px-4 relative z-10" data-aos="fade-down">
+      <h2 class="text-5xl font-extrabold glitch mb-4" data-text="Enter the Void">Enter the Void</h2>
+      <p class="text-gray-400 text-lg max-w-xl mx-auto">
+        Premium digital products forged in neon shadows.
+      </p>
+    </section>
+
+    <!-- Filter Buttons -->
+    <section class="max-w-6xl mx-auto px-4 mb-12 flex justify-center gap-6 z-10 relative" data-aos="fade-up">
+      <button
+        class="filter-btn px-5 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-600 hover:text-white transition font-semibold"
+        data-filter="all"
+      >
+        All
+      </button>
+      <button
+        class="filter-btn px-5 py-2 rounded-full border border-cyan-400 text-cyan-400 hover:bg-cyan-500 hover:text-black transition font-semibold"
+        data-filter="digital"
+      >
+        Digital
+      </button>
+      <button
+        class="filter-btn px-5 py-2 rounded-full border border-purple-500 text-purple-500 hover:bg-purple-600 hover:text-white transition font-semibold"
+        data-filter="software"
+      >
+        Software
+      </button>
     </section>
 
     <!-- Products -->
-    <main class="max-w-6xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-      <div 
-        class="bg-gray-900 rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.02] hover:shadow-cyan-500/20 transition duration-300 ease-in-out"
+    <main
+      id="products-container"
+      class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 pb-24 relative z-10"
+    >
+      <div
+        class="product-item bg-white/5 border border-gray-700 rounded-2xl backdrop-blur p-5 hover:shadow-pink-500/30 hover:scale-105 transition-all duration-300"
         data-aos="fade-up"
+        data-category="digital"
       >
-        <img src="https://via.placeholder.com/400x300/111111/ffffff?text=Cool+Item" alt="Product" class="w-full h-48 object-cover" />
-        <div class="p-4 flex flex-col items-center">
-          <h2 class="text-xl font-semibold mb-1 text-white">Cool Item</h2>
-          <p class="text-gray-400 mb-2">$25.00</p>
-          <button 
-            class="snipcart-add-item bg-cyan-500 text-gray-900 font-medium px-4 py-2 rounded-full hover:bg-cyan-400 transition"
-            data-item-id="cool-item-1"
-            data-item-name="Cool Item"
-            data-item-price="25.00"
-            data-item-url="/"
-            data-item-description="A really cool product."
-          >
-            Add to Cart
-          </button>
-        </div>
+        <img
+          src="https://via.placeholder.com/400x300/111111/ffffff?text=Cool+AF"
+          alt="Cool Item"
+          class="rounded-lg mb-4"
+        />
+        <h3 class="text-xl text-white font-bold mb-1">Cool Item</h3>
+        <p class="text-pink-400 text-lg mb-3">$25.00</p>
+        <button
+          class="snipcart-add-item w-full bg-pink-600 text-black font-bold py-2 rounded hover:bg-pink-500 transition"
+          data-item-id="cool-item-1"
+          data-item-name="Cool Item"
+          data-item-price="25.00"
+          data-item-url="/"
+          data-item-description="Dark, sleek, and deadly cool digital item."
+        >
+          ADD TO CART
+        </button>
+      </div>
+
+      <div
+        class="product-item bg-white/5 border border-gray-700 rounded-2xl backdrop-blur p-5 hover:shadow-cyan-400/30 hover:scale-105 transition-all duration-300"
+        data-aos="fade-up"
+        data-category="software"
+      >
+        <img
+          src="https://via.placeholder.com/400x300/111111/00fff9?text=Software+X"
+          alt="Software X"
+          class="rounded-lg mb-4"
+        />
+        <h3 class="text-xl text-cyan-400 font-bold mb-1">Software X</h3>
+        <p class="text-cyan-300 text-lg mb-3">$49.00</p>
+        <button
+          class="snipcart-add-item w-full bg-cyan-500 text-black font-bold py-2 rounded hover:bg-cyan-400 transition"
+          data-item-id="software-x"
+          data-item-name="Software X"
+          data-item-price="49.00"
+          data-item-url="/"
+          data-item-description="Next-gen software to boost your workflow."
+        >
+          ADD TO CART
+        </button>
+      </div>
+
+      <div
+        class="product-item bg-white/5 border border-gray-700 rounded-2xl backdrop-blur p-5 hover:shadow-purple-500/30 hover:scale-105 transition-all duration-300"
+        data-aos="fade-up"
+        data-category="digital"
+      >
+        <img
+          src="https://via.placeholder.com/400x300/111111/aa00ff?text=Digital+Wave"
+          alt="Digital Wave"
+          class="rounded-lg mb-4"
+        />
+        <h3 class="text-xl text-purple-500 font-bold mb-1">Digital Wave</h3>
+        <p class="text-purple-400 text-lg mb-3">$30.00</p>
+        <button
+          class="snipcart-add-item w-full bg-purple-600 text-black font-bold py-2 rounded hover:bg-purple-500 transition"
+          data-item-id="digital-wave"
+          data-item-name="Digital Wave"
+          data-item-price="30.00"
+          data-item-url="/"
+          data-item-description="Ride the neon digital wave."
+        >
+          ADD TO CART
+        </button>
       </div>
     </main>
 
     <!-- Footer -->
-    <footer class="mt-20 p-6 text-center text-gray-500 text-sm">
-      &copy; 2025 Dark Shop. Built with 🔥
+    <footer
+      class="text-center text-gray-600 py-10 text-sm border-t border-gray-800 relative z-10"
+    >
+      © 2025 VOIDSTORE. Embrace the digital void.
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script>AOS.init({ once: true, duration: 800 });</script>
+    <script>
+      AOS.init({ once: true, duration: 900 });
+
+      // Filter logic
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const products = document.querySelectorAll('.product-item');
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Reset active classes
+          filterButtons.forEach(b => b.classList.remove('bg-pink-600', 'text-black'));
+          // Highlight clicked
+          btn.classList.add('bg-pink-600', 'text-black');
+
+          const filter = btn.getAttribute('data-filter');
+          products.forEach(prod => {
+            if (filter === 'all' || prod.getAttribute('data-category') === filter) {
+              prod.classList.remove('hidden-product');
+              prod.style.position = 'relative';
+            } else {
+              prod.classList.add('hidden-product');
+              prod.style.position = 'absolute';
+            }
+          });
+        });
+      });
+
+      // Default filter on load = all
+      window.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('.filter-btn[data-filter="all"]').click();
+      });
+    </script>
   </body>
 </html>
