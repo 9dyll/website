@@ -1,33 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SaveWeb2ZIP</title>
-  <style>
-    body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
-    input, button { padding: 10px; margin: 5px 0; width: 100%; }
-  </style>
-</head>
-<body>
-  <h1>Save a website to ZIP</h1>
-  <form onsubmit="submitForm(event)">
-    <input type="text" id="url" placeholder="Enter webpage URL" required />
-    <button type="submit">Save</button>
-    <label><input type="checkbox" id="rename"> Rename all assets</label><br/>
-    <label><input type="checkbox" id="mobile"> Copy mobile version</label><br/>
-    <label><input type="checkbox" id="simple"> Simplified download</label><br/>
-    <label><input type="checkbox" id="structure"> Save structure</label>
-  </form>
-  <p id="msg"></p>
+---
+// src/pages/index.astro
+---
 
-  <script>
-    function submitForm(e) {
-      e.preventDefault();
-      const url = document.getElementById('url').value;
-      document.getElementById('msg').innerText = 'Downloading from: ' + url;
-      // insert your download logic or API call here
-    }
-  </script>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <script src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js" async></script>
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
+    <div hidden id="snipcart" data-api-key="YOUR_PUBLIC_API_KEY"></div>
+  </head>
+  <body class="bg-gray-50 text-gray-900 font-sans leading-relaxed">
+    <header class="sticky top-0 z-50 p-6 bg-white shadow transition duration-300">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold tracking-tight">My Shop</h1>
+        <button class="snipcart-checkout text-blue-600 hover:text-blue-800 transition">
+          Cart (<span class="snipcart-items-count"></span>)
+        </button>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <!-- Product -->
+      <div 
+        class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition duration-300 ease-in-out"
+        data-aos="fade-up"
+      >
+        <img src="https://via.placeholder.com/400x300" alt="Product" class="w-full h-48 object-cover" />
+        <div class="p-4 flex flex-col items-center">
+          <h2 class="text-xl font-semibold mb-1">Cool Item</h2>
+          <p class="text-gray-600 mb-2">$25.00</p>
+          <button 
+            class="snipcart-add-item bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
+            data-item-id="cool-item-1"
+            data-item-name="Cool Item"
+            data-item-price="25.00"
+            data-item-url="/"
+            data-item-description="A really cool product."
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="mt-20 p-6 text-center text-gray-500 text-sm">
+      &copy; 2025 My Shop. All rights reserved.
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>AOS.init({ once: true, duration: 800 });</script>
+  </body>
 </html>
