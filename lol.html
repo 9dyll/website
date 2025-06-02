@@ -6,35 +6,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Shop</title>
+    <title>Dark Shop</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
     <script src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js" async></script>
     <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
     <div hidden id="snipcart" data-api-key="YOUR_PUBLIC_API_KEY"></div>
   </head>
-  <body class="bg-gray-50 text-gray-900 font-sans leading-relaxed">
-    <header class="sticky top-0 z-50 p-6 bg-white shadow transition duration-300">
+  <body class="bg-gray-950 text-gray-100 font-sans">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 p-6 bg-gray-900 shadow-lg backdrop-blur bg-opacity-80">
       <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold tracking-tight">My Shop</h1>
-        <button class="snipcart-checkout text-blue-600 hover:text-blue-800 transition">
+        <h1 class="text-2xl font-bold tracking-tight text-white">Dark Shop</h1>
+        <button class="snipcart-checkout text-cyan-400 hover:text-cyan-300 transition">
           Cart (<span class="snipcart-items-count"></span>)
         </button>
       </div>
     </header>
 
+    <!-- Hero (Optional) -->
+    <section class="text-center py-16" data-aos="fade-down">
+      <h2 class="text-4xl font-extrabold mb-4 text-white">Shop the Future</h2>
+      <p class="text-gray-400">Sleek digital goods crafted for the modern world.</p>
+    </section>
+
+    <!-- Products -->
     <main class="max-w-6xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-      <!-- Product -->
       <div 
-        class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition duration-300 ease-in-out"
+        class="bg-gray-900 rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.02] hover:shadow-cyan-500/20 transition duration-300 ease-in-out"
         data-aos="fade-up"
       >
-        <img src="https://via.placeholder.com/400x300" alt="Product" class="w-full h-48 object-cover" />
+        <img src="https://via.placeholder.com/400x300/111111/ffffff?text=Cool+Item" alt="Product" class="w-full h-48 object-cover" />
         <div class="p-4 flex flex-col items-center">
-          <h2 class="text-xl font-semibold mb-1">Cool Item</h2>
-          <p class="text-gray-600 mb-2">$25.00</p>
+          <h2 class="text-xl font-semibold mb-1 text-white">Cool Item</h2>
+          <p class="text-gray-400 mb-2">$25.00</p>
           <button 
-            class="snipcart-add-item bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
+            class="snipcart-add-item bg-cyan-500 text-gray-900 font-medium px-4 py-2 rounded-full hover:bg-cyan-400 transition"
             data-item-id="cool-item-1"
             data-item-name="Cool Item"
             data-item-price="25.00"
@@ -47,8 +54,9 @@
       </div>
     </main>
 
+    <!-- Footer -->
     <footer class="mt-20 p-6 text-center text-gray-500 text-sm">
-      &copy; 2025 My Shop. All rights reserved.
+      &copy; 2025 Dark Shop. Built with 🔥
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
