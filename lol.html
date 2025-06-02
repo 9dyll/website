@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
     <script async src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
     <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
-    <div hidden id="snipcart" data-api-key="MDQ3ZWY3ZDYtZTJlOS00NjFkLWJmNTEtZGExOGQ2YzZmNmM0NjM4ODQ0NjIxNjg0NzAyMTcw"></div>
 
     <style>
       body {
@@ -133,7 +132,26 @@
     </section>
 
     <!-- Filter Buttons -->
-
+    <section class="max-w-6xl mx-auto px-4 mb-12 flex justify-center gap-6 z-10 relative" data-aos="fade-up">
+      <button
+        class="filter-btn px-5 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-600 hover:text-white transition font-semibold"
+        data-filter="all"
+      >
+        All
+      </button>
+      <button
+        class="filter-btn px-5 py-2 rounded-full border border-cyan-400 text-cyan-400 hover:bg-cyan-500 hover:text-black transition font-semibold"
+        data-filter="digital"
+      >
+        Digital
+      </button>
+      <button
+        class="filter-btn px-5 py-2 rounded-full border border-purple-500 text-purple-500 hover:bg-purple-600 hover:text-white transition font-semibold"
+        data-filter="software"
+      >
+        Software
+      </button>
+    </section>
 
     <!-- Products -->
     <main
@@ -175,9 +193,7 @@
 
       filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-          // Reset active classes
           filterButtons.forEach(b => b.classList.remove('bg-pink-600', 'text-black'));
-          // Highlight clicked
           btn.classList.add('bg-pink-600', 'text-black');
 
           const filter = btn.getAttribute('data-filter');
@@ -187,4 +203,33 @@
               prod.style.position = 'relative';
             } else {
               prod.classList.add('hidden-product');
-              prod.style
+              prod.style.position = 'absolute';
+            }
+          });
+        });
+      });
+
+      // Default filter on load = all
+      window.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('.filter-btn[data-filter="all"]').click();
+      });
+
+      // Sales count animation up to 253
+      let salesCount = 0;
+      const salesLimit = 253;
+      const salesElement = document.getElementById('sales-count');
+
+      function incrementSales() {
+        if (salesCount < salesLimit) {
+          salesCount++;
+          salesElement.textContent = salesCount;
+          setTimeout(incrementSales, 50);
+        }
+      }
+      incrementSales();
+    </script>
+
+    <!-- Snipcart div must be inside body -->
+    <div hidden id="snipcart" data-api-key="MDQ3ZWY3ZDYtZTJlOS00NjFkLWJmNTEtZGExOGQ2YzZmNmM0NjM4ODQ0NjIxNjg0NzAyMTcw"></div>
+  </body>
+</html>
