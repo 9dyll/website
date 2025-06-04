@@ -1,235 +1,86 @@
-<html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Token Grabber</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
-    <script async src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
-    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discord ID Tools</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      animation: fadeIn 1s ease-in;
+    }
 
-    <style>
-      body {
-        font-family: 'Orbitron', sans-serif;
-        background: #0a0a0a;
-        overflow-x: hidden;
-        position: relative;
+    input, button {
+      margin: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    input {
+      background-color: #1a1a1a;
+      color: #fff;
+      width: 300px;
+    }
+
+    button {
+      background-color: #5865F2;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .output {
+      margin-top: 1rem;
+      background-color: #1a1a1a;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      word-break: break-all;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Discord ID Tools</h1>
+
+  <input type="text" id="discordId" placeholder="Enter Discord ID" />
+  <button onclick="processId()">Analyze ID</button>
+
+  <div class="output" id="idInfo"></div>
+
+  <script>
+    function processId() {
+      const id = document.getElementById("discordId").value.trim();
+      const output = document.getElementById("idInfo");
+
+      if (!/^[0-9]{17,20}$/.test(id)) {
+        output.innerHTML = "Invalid Discord ID.";
+        return;
       }
 
-      /* Glitchy animated background */
-      body::before {
-        content: '';
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background:
-          radial-gradient(circle at 20% 20%, #ff00c8aa 15%, transparent 40%),
-          radial-gradient(circle at 80% 80%, #00fffaaa 15%, transparent 40%);
-        mix-blend-mode: screen;
-        animation: pulse 6s infinite alternate ease-in-out;
-        z-index: 0;
-        pointer-events: none;
-      }
+      const timestamp = BigInt(id) >> 22n;
+      const discordEpoch = 1420070400000n;
+      const date = new Date(Number(timestamp + discordEpoch));
 
-      @keyframes pulse {
-        0% {
-          filter: blur(6px);
-          opacity: 0.3;
-        }
-        100% {
-          filter: blur(20px);
-          opacity: 0.6;
-        }
-      }
+      const base64 = btoa(id);
 
-      /* Glitch text effect for hero */
-      .glitch {
-        position: relative;
-        color: white;
-        font-weight: 700;
-      }
-      .glitch::before,
-      .glitch::after {
-        content: attr(data-text);
-        position: absolute;
-        left: 0;
-        width: 100%;
-        opacity: 0.8;
-        clip-path: var(--clip);
-      }
-      .glitch::before {
-        animation: glitchTop 2s infinite linear alternate-reverse;
-        color: #ff00c8;
-        --clip: polygon(0 2%, 100% 2%, 100% 20%, 0 20%);
-      }
-      .glitch::after {
-        animation: glitchBottom 3s infinite linear alternate-reverse;
-        color: #00fff9;
-        --clip: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
-      }
-      @keyframes glitchTop {
-        0% { transform: translate(2px, -2px) skew(-1deg); }
-        20% { transform: translate(-2px, 0) skew(1deg); }
-        40% { transform: translate(2px, 2px) skew(0); }
-        60% { transform: translate(-1px, 1px) skew(1deg); }
-        80% { transform: translate(1px, -1px) skew(-1deg); }
-        100% { transform: translate(0, 0) skew(0); }
-      }
-      @keyframes glitchBottom {
-        0% { transform: translate(-2px, 2px) skew(1deg); }
-        20% { transform: translate(2px, -1px) skew(-1deg); }
-        40% { transform: translate(-2px, 0) skew(0); }
-        60% { transform: translate(1px, -1px) skew(-1deg); }
-        80% { transform: translate(-1px, 2px) skew(1deg); }
-        100% { transform: translate(0, 0) skew(0); }
-      }
-
-      /* Product filtering animations */
-      .product-item {
-        transition: opacity 0.4s ease, transform 0.4s ease;
-      }
-      .hidden-product {
-        opacity: 0;
-        transform: scale(0.85);
-        pointer-events: none;
-        position: absolute;
-      }
-
-      /* Total sales style */
-      #total-sales {
-        font-weight: 700;
-        color: #ec4899; /* Tailwind pink-500 */
-        margin-bottom: 1.5rem;
-        user-select: none;
-        text-align: center;
-        z-index: 20;
-      }
-    </style>
-  </head>
-
-  <body class="relative text-gray-100">
-    <!-- Header -->
-    <header class="sticky top-0 z-50 p-6 bg-black/80 backdrop-blur shadow border-b border-gray-800 flex justify-between max-w-6xl mx-auto">
-      <h1 class="text-3xl font-bold tracking-widest text-white">
-        dyll<span class="text-pink-500">.lol/tokengrabber</span>
-      </h1>
-      <button class="snipcart-checkout text-pink-500 hover:text-white transition">
-        CART (<span class="snipcart-items-count"></span>)
-      </button>
-    </header>
-
-    <!-- Total Sales Counter -->
-    <div id="total-sales" aria-live="polite" aria-atomic="true">
-      Total sales today: <span id="sales-count">0</span>
-    </div>
-
-    <!-- Hero -->
-    <section class="text-center py-20 px-4 relative z-10" data-aos="fade-down" aria-label="Hero section">
-      <h1 class="text-5xl font-extrabold glitch mb-4" data-text="Enter the Void">Token-Grabber</h1>
-      <p class="text-gray-400 text-lg max-w-xl mx-auto">
-        Get people's tokens with authenticity.
-      </p>
-    </section>
-
-    <!-- Filter Buttons -->
-    <section class="max-w-6xl mx-auto px-4 mb-12 flex justify-center gap-6 z-10 relative" data-aos="fade-up">
-      <button
-        class="filter-btn px-5 py-2 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-600 hover:text-white transition font-semibold"
-        data-filter="all"
-      >
-        All
-      </button>
-      <button
-        class="filter-btn px-5 py-2 rounded-full border border-cyan-400 text-cyan-400 hover:bg-cyan-500 hover:text-black transition font-semibold"
-        data-filter="digital"
-      >
-        Digital
-      </button>
-      <button
-        class="filter-btn px-5 py-2 rounded-full border border-purple-500 text-purple-500 hover:bg-purple-600 hover:text-white transition font-semibold"
-        data-filter="software"
-      >
-        Software
-      </button>
-    </section>
-
-    <!-- Products -->
-    <main
-      id="products-container"
-      class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 pb-24 relative z-10"
-    >
-      <div
-        class="product-item bg-white/5 border border-gray-700 rounded-2xl backdrop-blur p-5 hover:shadow-pink-500/30 hover:scale-105 transition-all duration-300"
-        data-aos="fade-up"
-        data-category="digital"
-      >
-        <img
-          src="https://media.discordapp.net/attachments/1370585903541522505/1379072855060512809/PREMIUM-02-06-2025.gif?ex=683ee92e&is=683d97ae&hm=349838f1e34e43c98bad4f2aed07950131c7cf36d07a87366de5b98f1ee78180&="
-          alt=""
-          class="rounded-lg mb-4"
-        />
-        <h3 class="text-xl text-white font-bold mb-1">Premium</h3>
-        <p class="text-pink-400 text-lg mb-3">£5.00</p>
-        <button>
-          OUT OF STOCK
-        </button>
-      </div>
-    </main>
-
-    <!-- Footer -->
-    <footer
-      class="text-center text-gray-600 py-10 text-sm border-t border-gray-800 relative z-10"
-    >
-      © 2025 Token-Grabber. Grab tokens with authenticity.
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script>
-      AOS.init({ once: true, duration: 900 });
-
-      // Filter logic
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      const products = document.querySelectorAll('.product-item');
-
-      filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          filterButtons.forEach(b => b.classList.remove('bg-pink-600', 'text-black'));
-          btn.classList.add('bg-pink-600', 'text-black');
-
-          const filter = btn.getAttribute('data-filter');
-          products.forEach(prod => {
-            if (filter === 'all' || prod.getAttribute('data-category') === filter) {
-              prod.classList.remove('hidden-product');
-              prod.style.position = 'relative';
-            } else {
-              prod.classList.add('hidden-product');
-              prod.style.position = 'absolute';
-            }
-          });
-        });
-      });
-
-      // Default filter on load = all
-      window.addEventListener('DOMContentLoaded', () => {
-        document.querySelector('.filter-btn[data-filter="all"]').click();
-      });
-
-      // Sales count animation up to 253
-      let salesCount = 0;
-      const salesLimit = 253;
-      const salesElement = document.getElementById('sales-count');
-
-      function incrementSales() {
-        if (salesCount < salesLimit) {
-          salesCount++;
-          salesElement.textContent = salesCount;
-          setTimeout(incrementSales, 50);
-        }
-      }
-      incrementSales();
-    </script>
-
-    <!-- Snipcart div must be inside body -->
-    <div hidden id="snipcart" data-api-key="MDQ3ZWY3ZDYtZTJlOS00NjFkLWJmNTEtZGExOGQ2YzZmNmM0NjM4ODQ0NjIxNjg0NzAyMTcw"></div>
-  </body>
+      output.innerHTML = `
+        <strong>Account Creation:</strong> ${date.toUTCString()}<br>
+        <strong>Base64 Encoded:</strong> ${base64}
+      `;
+    }
+  </script>
+</body>
 </html>
